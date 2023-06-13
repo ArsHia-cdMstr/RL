@@ -57,7 +57,7 @@ def modify_rewards_P(envP, custom_map, hole_reward, goal_reward, move_reward):
 
 class ModifyRewards(gym.Wrapper):
     def __init__(
-        self, env, custom_map, hole_reward=-10, goal_reward=10, move_reward=-0.1
+            self, env, custom_map, hole_reward=-10, goal_reward=10, move_reward=-0.1
     ):
         super().__init__(env)
         self.hole_reward = hole_reward
@@ -81,7 +81,7 @@ class ModifyRewards(gym.Wrapper):
 
 
 ############################### plot methods : you can use them to plot 
-                              # your policy and state value
+# your policy and state value
 
 
 #  plot policy with arrows in four direction to understand policy better
@@ -211,7 +211,7 @@ def plot_state_value(state_value, custom_map):
 
 
 ############################### handler methods : you don't need to know them,
-                              # they have been used in other methods
+# they have been used in other methods
 
 
 def act_wrt_prob(probability):
@@ -244,11 +244,11 @@ def get_flaten_custom_map(custom_map):
 
 
 ############################### helper methods : you can use them in your code to create
-                              # random policy and check your policy
+# random policy and check your policy
 
 
-# it gives a randome walk policy w.r.t costum 
-def get_init_policy(custom_map):
+# it gives a random walk policy w.r.t costume
+def get_init_policy(custom_map: list[str]) -> dict[float, float]:
     policy = {}
     random_sub_dict = {0: 0.25, 1: 0.25, 2: 0.25, 3: 0.25}
     terminal_sub_dict = {0: 0.0, 1: 0.0, 2: 0.0, 3: 0.0}
@@ -263,7 +263,8 @@ def get_init_policy(custom_map):
 
     return policy
 
-# it gives walk policy according to direction w.r.t costum 
+
+# it gives walk policy according to direction w.r.t costume
 def get_policy_direction(direction, custom_map):  # direction :"left", "down", "right"
     policy = {}
     left_sub_dict = {0: 1.0, 1: 0.0, 2: 0.0, 3: 0.0}
@@ -287,9 +288,9 @@ def get_policy_direction(direction, custom_map):  # direction :"left", "down", "
     return policy
 
 
-# it run game according to given policy
+# it runs game according to given policy
 def do_policy(env, policy, episdoes=5):
-    # episdoes = 10
+    # episodes = 10
     for ep in range(episdoes):
         n_state = env.reset()[0]
         done = False
@@ -311,11 +312,11 @@ def do_policy(env, policy, episdoes=5):
 # the state values for each state in the environment using the Bellman equation and the current policy. In the Policy Improvement
 # step, you improve the policy by choosing the action that maximizes the value function for each state.
 def policy_iteration(env, custom_map, max_ittr=30, theta=0.01, discount_factor=0.9):
-    policy = get_init_policy(custom_map)   # it gives a random-walk policy
+    policy = get_init_policy(custom_map)  # it gives a random-walk policy
     V = np.zeros(env.observation_space.n)  # you can change it with any init value
-    P = env.P                              # This attribute stores the transition probabilities
-                                           # and rewards for each possible action in each possible
-                                           # state of the environment.
+    P = env.P  # This attribute stores the transition probabilities
+    # and rewards for each possible action in each possible
+    # state of the environment.
 
     # loop till policy_stable becomes True or itter >= max_ittr
     ittr = 0
@@ -332,7 +333,7 @@ def policy_iteration(env, custom_map, max_ittr=30, theta=0.01, discount_factor=0
 # This algorithm allows you to estimate the state values of a given policy by sampling episodes and
 # calculating the average returns(in first visit of a state in each episode)
 def first_visit_mc_prediction(env, policy, num_episodes, gamma):
-    # initilize
+    # initialize
     V = np.zeros(env.observation_space.n)
     N = np.zeros(env.observation_space.n)
 
@@ -349,7 +350,7 @@ def first_visit_mc_prediction(env, policy, num_episodes, gamma):
 # This algorithm allows you to estimate the state values of a given policy by sampling episodes and
 # calculating the average returns(in every visit of a state)
 def every_visit_mc_prediction(env, policy, num_episodes, gamma):
-    # initilize
+    # initialize
     V = np.zeros(env.observation_space.n)
     N = np.zeros(env.observation_space.n)
 
@@ -367,39 +368,39 @@ def every_visit_mc_prediction(env, policy, num_episodes, gamma):
 
 custom_map_1 = ["HFSFFFFG"]
 
-custom_map_2 = ["SFFFF", 
-                "HHHFF", 
-                "FFFFH", 
-                "FFFFF", 
+custom_map_2 = ["SFFFF",
+                "HHHFF",
+                "FFFFH",
+                "FFFFF",
                 "FFFFG"]
 
-custom_map_3 = ["SFFFF", 
-                "HFFFF", 
-                "HFFFF", 
-                "HFFFF", 
+custom_map_3 = ["SFFFF",
+                "HFFFF",
+                "HFFFF",
+                "HFFFF",
                 "GFFFF"]
 
-custom_map_4 = ["FFFSFFF", 
-                "FHHHHFF", 
-                "FFFFFFF", 
-                "HFFFFFF", 
+custom_map_4 = ["FFFSFFF",
+                "FHHHHFF",
+                "FFFFFFF",
+                "HFFFFFF",
                 "FGFFFFF"]
 
 custom_map_5 = ["HFSFFFFG"]
 
-custom_map_6 = ["HFSFFFFG", 
-                "HFFFFFFF", 
+custom_map_6 = ["HFSFFFFG",
+                "HFFFFFFF",
                 "HFFFFFFF"]
 
-custom_map_7 = ["SFFFF", 
-                "FFFFH", 
-                "HHFFF", 
-                "HFFFH", 
+custom_map_7 = ["SFFFF",
+                "FFFFH",
+                "HHFFF",
+                "HFFFH",
                 "FFFFG"]
 
-custom_map_8 = ["HFFSFFH", 
-                "FFFFFFF", 
-                "FFFFFFF", 
+custom_map_8 = ["HFFSFFH",
+                "FFFFFFF",
+                "FFFFFFF",
                 "GFFHFFG"]
 #############################
 if __name__ == "__main__":
@@ -440,7 +441,7 @@ if __name__ == "__main__":
     # plot_state_value(V, map)
     # plot_policy_arrows(policy, map)
     # plot_policy_terminal(policy, map)
-    # do_policy(env, policy, episdoes=5)
+    # do_policy(env, policy, episodes=5)
 
     # num_episodes = 10000
     # gamma = 0.9
